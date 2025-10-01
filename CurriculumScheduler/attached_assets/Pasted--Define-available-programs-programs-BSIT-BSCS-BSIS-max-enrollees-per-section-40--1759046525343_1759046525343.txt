@@ -1,0 +1,206 @@
+# Define available programs
+programs = ["BSIT", "BSCS", "BSIS"]
+max_enrollees_per_section = 40
+
+# Track last used section letters { (program, year): 'A' }
+last_section_letter = {}
+
+# Function to get next section letter
+def get_next_section_letter(program, year_level):
+    key = (program, year_level)
+    if key not in last_section_letter:
+        last_section_letter[key] = 'A'
+        return 'A'
+    else:
+        # move to next letter
+        next_letter = chr(ord(last_section_letter[key]) + 1)
+        last_section_letter[key] = next_letter
+        return next_letter
+
+# Function to handle enrollees and generate sections
+def generate_sections(program, course_year, total_enrollees):
+    if total_enrollees == 0:
+        return []
+
+    sections = []
+    while total_enrollees > 0:
+        students_in_section = min(max_enrollees_per_section, total_enrollees)
+        section_letter = get_next_section_letter(program, course_year)
+        section_name = f"{program}{course_year}{section_letter}"
+        sections.append((section_name, students_in_section))
+        total_enrollees -= students_in_section
+
+    return sections
+
+# Function to add new enrollees to an existing year
+def add_new_students(program_year_sections):
+    print("\n--- Add New Students ---")
+    for i, prog in enumerate(programs, 1):
+        print(f"[{i}] {prog}")
+    prog_choice = input("Select program: ")
+
+    if prog_choice not in ["1", "2", "3"]:
+        print("Invalid program.")
+        return
+
+    program = programs[int(prog_choice) - 1]
+    year_level = int(input("Enter year level (1-4): "))
+    new_students = int(input("Enter number of new students: "))
+
+    # Retrieve existing sections
+    years = program_year_sections.setdefault(program, {})
+    sections = years.setdefault(year_level, [])
+
+    # Try to fill last section first
+    if sections:
+        last_section_name, last_count = sections[-1]
+        if last_count < max_enrollees_per_section:
+            space = max_enrollees_per_section - last_count
+            to_add = min(space, new_students)
+            sections[-1] = (last_section_name, last_count + to_add)
+            new_students -= to_add
+
+    # Create new sections if still more students
+    if new_students > 0:
+        more_sections = generate_sections(program, year_level, new_students)
+        sections.extend(more_sections)
+
+    sections.sort(key=lambda x: x[0])
+    years[year_level] = sections
+    program_year_sections[program] = years
+
+    print("New students successfully added!")
+
+# Function to view sections
+def view_sections(program_year_sections):
+    print("\n--- View Sections ---")
+    for i, prog in enumerate(programs, 1):
+        print(f"[{i}] {prog}")
+    print("[4] Back")
+    choice = input("Select an option: ")
+
+    if choice in ["1", "2", "3"]:
+        selected_program = programs[int(choice) - 1]
+        years = program_year_sections.get(selected_program, {})
+
+        if not years:
+            print(f"\nNo sections generated for {selected_program}.")
+            return
+
+        print(f"\n=== {selected_program} Sections ===")
+        for year_level, sections in years.items():
+            print(f"\n--- Year {year_level} ---")
+            print(f"{'Section Name':<12} {'Students':<8}")
+            print("-" * 25)
+            for section_name, students in sections:
+                print(f"{section_name:<12} {students:<8}")
+
+# Function to add initial enrollees
+def add_initial_enrollees(program_year_sections):
+    for program in programs:
+        year_dict = {}
+        for year_level in range(1, 5):
+            try:
+                total_enrollees = int(input(f"Enter total enrollees for {program} Year {year_level}: "))
+            except ValueError:
+                total_enrollees = 0
+
+            if total_enrollees > 0:
+                sections = generate_sections(program, year_level, total_enrollees)
+                sections.sort(key=lambda x: x[0])
+                year_dict[year_level] = sections
+        program_year_sections[program] = year_dict
+
+# dictionary of courses by program, year, and term
+program_courses = {
+    "BSCS": {
+        1: {
+            1: [("CCINCOMX", "INTRODUCTION TO COMPUTING - LEC"),
+                ("CCINCOBL", "INTRODUCTION TO COMPUTING - LAB"),
+                ("CCPRGG1X", "FUNDAMENTALS OF PROGRAMMING - LEC"),
+                ("CCPRG1BL", "FUNDAMENTALS OF PROGRAMMING - LAB")],
+            2: [("CCDISTR1", "DISCRETE STRUCTURES 1"),
+                ("CCPRGG2X", "INTERMEDIATE PROGRAMMING - LEC"),
+                ("CCPRG2BL", "INTERMEDIATE PROGRAMMING - LAB")],
+            3: [("CCDISTR2", "DISCRETE STRUCTURES 2"),
+                ("CCOBJPGL", "OBJECT-ORIENTED PROGRAMMING"),
+                ("CCOBJPGX", "OBJECT-ORIENTED PROGRAMMING - LEC")]
+        }
+        # add 2nd, 3rd, 4th year later
+    },
+    "BSIS": {
+        1: {
+            1: [("CCINCOMX", "INTRODUCTION TO COMPUTING - LEC"),
+                ("CCINCOBL", "INTRODUCTION TO COMPUTING - LAB"),
+                ("CCPRGG1X", "FUNDAMENTALS OF PROGRAMMING - LEC"),
+                ("CCPRG1BL", "FUNDAMENTALS OF PROGRAMMING - LAB")],
+            2: [("CCFUINSY", "FUNDAMENTALS OF INFORMATION SYSTEMS"),
+                ("CCPRGG2X", "INTERMEDIATE PROGRAMMING - LEC"),
+                ("CCPRG2BL", "INTERMEDIATE PROGRAMMING - LAB")],
+            3: [("CCDATRCL", "DATA STRUCTURES AND ALGORITHMS"),
+                ("CCORMACO", "ORGANIZATION AND MANAGEMENT CONCEPTS")]
+        }
+    },
+    "BSIT": {
+        1: {
+            1: [("INTCOMC", "INTRODUCTION TO COMPUTING FOR CS / IT"),
+                ("PROGCON", "Programming Concepts and Logic"),
+                ("COMPORG", "COMPUTER ORGANIZATION & ARCHITECTURE")],
+            2: [("INPROLA", "INTRODUCTION TO PROGRAMMING & THEORIES"),
+                ("MANPRIN", "MANAGEMENT PRINCIPLES"),
+                ("OPESYST", "OPERATING SYSTEMS")],
+            3: [("DASTRUC", "DATA STRUCTURES"),
+                ("BUSPROS", "Business Process"),
+                ("DNETCOM", "NETWORK SECURITY, STORAGE & DATA COMMUNICATION")]
+        }
+    }
+}
+
+# Function to view courses
+def view_courses():
+    print("\n--- View Courses ---")
+    for i, prog in enumerate(programs, 1):
+        print(f"[{i}] {prog}")
+    print("[4] Back")
+    choice = input("Select program: ")
+
+    if choice in ["1", "2", "3"]:
+        selected_program = programs[int(choice) - 1]
+        year_level = int(input("Enter year level (1-4): "))
+        term = int(input("Enter term (1-3): "))
+
+        courses = program_courses.get(selected_program, {}).get(year_level, {}).get(term, [])
+        if not courses:
+            print(f"\nNo courses found for {selected_program} Year {year_level} Term {term}.")
+            return
+
+        print(f"\n=== {selected_program} Year {year_level} Term {term} Courses ===")
+        print(f"{'Code':<12} {'Course Title'}")
+        print("-" * 40)
+        for code, title in courses:
+            print(f"{code:<12} {title}")
+
+# --- MAIN PROGRAM ---
+if __name__ == "__main__":
+    program_year_sections = {}
+
+    while True:
+        print("[1] Add Number of Enrollees")
+        print("[2] View Sections")
+        print("[3] Add New Enrolled Students")
+        print("[4] View Courses")   # new
+        print("[5] Exit")
+        option = input("Select an option: ")
+
+        if option == "1":
+            add_initial_enrollees(program_year_sections)
+        elif option == "2":
+            view_sections(program_year_sections)
+        elif option == "3":
+            add_new_students(program_year_sections)
+        elif option == "4":
+            view_courses()
+        elif option == "5":
+            break
+        else:
+            print("Invalid choice. Try again.")
