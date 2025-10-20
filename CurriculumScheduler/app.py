@@ -80,7 +80,7 @@ def main():
     st.sidebar.title("Navigation")
     page = st.sidebar.selectbox(
         "Choose a page:",
-        ["Data Management", "Generate Sections", "Schedule Classes", "View Schedules", "Conflict Detection", "Export Results"]
+        ["Data Management", "Generate Sections", "Schedule Classes", "View Schedules", "View Rooms", "Export Results"]
     )
     
     if page == "Data Management":
@@ -91,8 +91,8 @@ def main():
         schedule_classes_page()
     elif page == "View Schedules":
         view_schedules_page()
-    elif page == "Conflict Detection":
-        conflict_detection_page()
+    elif page == "View Rooms":
+        view_rooms_page()
     elif page == "Export Results":
         export_results_page()
 
@@ -373,11 +373,10 @@ def schedule_classes_page():
     col1, col2 = st.columns(2)
     
     with col1:
-        algorithm = st.selectbox("Scheduling Algorithm", ["Greedy", "Backtracking", "Constraint Satisfaction"])
-        max_iterations = st.number_input("Max Iterations", min_value=100, max_value=10000, value=1000)
+       algorithm = st.selectbox("Scheduling Algorithm", ["Greedy", "Backtracking"])
     
     with col2:
-        selected_term = st.selectbox("Term", ["All", "1", "2", "3"])
+        selected_term = st.selectbox("Term", ["1", "2", "3"])
         allow_conflicts = st.checkbox("Allow time conflicts (not recommended)", value=False)
     
     if st.button("Generate Schedule", type="primary"):
@@ -395,9 +394,8 @@ def schedule_classes_page():
                 # Generate schedule
                 schedule = scheduler.generate_schedule(
                     algorithm=algorithm.lower(),
-                    max_iterations=max_iterations,
-                    term_filter=int(selected_term) if selected_term != "All" else None,
-                    allow_conflicts=allow_conflicts
+                    max_iterations=1000,
+                    term_filter=int(selected_term),
                 )
                 
                 if schedule is not None and not schedule.empty:
@@ -498,8 +496,8 @@ def create_weekly_view(schedule_df):
     
     return timetable.fillna("")
 
-def conflict_detection_page():
-    st.header("⚠️ Conflict Detection & Resolution")
+def view_rooms_page():
+    st.header("🏫 View Rooms")
     
     if st.session_state.scheduler.schedule is None:
         st.warning("No schedule generated yet. Please go to Schedule Classes page first.")
@@ -507,234 +505,129 @@ def conflict_detection_page():
     
     schedule = st.session_state.scheduler.schedule
     
-    st.subheader("Schedule Conflict Analysis")
+    st.subheader("Room Utilization Overview")
     
-    # Detect conflicts
-    with st.spinner("Analyzing schedule for conflicts..."):
-        conflicts = detect_scheduling_conflicts(schedule)
+    # Get unique rooms from the schedule
+    available_rooms = sorted(schedule['room'].unique())
     
-    if conflicts.empty:
-        st.success("🎉 No scheduling conflicts detected! Your schedule is optimal.")
-    else:
-        st.error(f"⚠️ Found {len(conflicts)} scheduling conflicts that need attention.")
-        
-        # Display conflicts by type
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            faculty_conflicts = conflicts[conflicts['conflict_type'] == 'Faculty']
-            st.subheader(f"Faculty Conflicts ({len(faculty_conflicts)})")
-            if not faculty_conflicts.empty:
-                st.dataframe(faculty_conflicts, use_container_width=True)
-        
-        with col2:
-            room_conflicts = conflicts[conflicts['conflict_type'] == 'Room']
-            st.subheader(f"Room Conflicts ({len(room_conflicts)})")
-            if not room_conflicts.empty:
-                st.dataframe(room_conflicts, use_container_width=True)
-        
-        # Conflict resolution suggestions
-        st.subheader("🔧 Conflict Resolution Suggestions")
-        
-        if not conflicts.empty:
-            st.info("""**Automatic Resolution Options:**
-            1. **Reschedule Conflicting Classes**: Automatically find alternative time slots
-            2. **Assign Alternative Faculty**: Find available faculty for conflicting courses
-            3. **Use Alternative Rooms**: Reassign classes to available rooms
-            4. **Split Large Sections**: Divide oversized sections to reduce scheduling pressure
-            """)
-            
-            # Resolution buttons
-            col1, col2, col3 = st.columns(3)
-            
-            with col1:
-                if st.button("Auto-Resolve Time Conflicts", type="primary"):
-                    with st.spinner("Resolving time conflicts..."):
-                        resolved_schedule = resolve_time_conflicts(schedule, conflicts)
-                        if resolved_schedule is not None:
-                            st.session_state.scheduler.schedule = resolved_schedule
-                            st.success("Time conflicts resolved! Schedule updated.")
-                            st.rerun()
-                        else:
-                            st.error("Unable to automatically resolve all conflicts.")
-            
-            with col2:
-                if st.button("Reassign Faculty"):
-                    with st.spinner("Reassigning faculty..."):
-                        resolved_schedule = resolve_faculty_conflicts(schedule, conflicts, st.session_state.data_manager.faculty)
-                        if resolved_schedule is not None:
-                            st.session_state.scheduler.schedule = resolved_schedule
-                            st.success("Faculty conflicts resolved! Schedule updated.")
-                            st.rerun()
-                        else:
-                            st.error("Unable to reassign faculty for all conflicts.")
-            
-            with col3:
-                if st.button("Reassign Rooms"):
-                    with st.spinner("Reassigning rooms..."):
-                        resolved_schedule = resolve_room_conflicts(schedule, conflicts, st.session_state.data_manager.rooms)
-                        if resolved_schedule is not None:
-                            st.session_state.scheduler.schedule = resolved_schedule
-                            st.success("Room conflicts resolved! Schedule updated.")
-                            st.rerun()
-                        else:
-                            st.error("Unable to reassign rooms for all conflicts.")
+    # Filter options
+    col1, col2 = st.columns(2)
     
-    # Schedule quality metrics
-    st.subheader("📊 Schedule Quality Metrics")
+    with col1:
+        selected_room = st.selectbox("Select Room", ["All Rooms"] + list(available_rooms))
+    
+    with col2:
+        selected_day = st.selectbox("Select Day", ["All Days", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"])
+    
+    # Room utilization statistics
+    st.subheader("📊 Room Utilization Statistics")
     
     col1, col2, col3, col4 = st.columns(4)
     
     with col1:
-        conflict_rate = len(conflicts) / len(schedule) * 100 if len(schedule) > 0 else 0
-        st.metric("Conflict Rate", f"{conflict_rate:.1f}%")
+        total_rooms = len(available_rooms)
+        st.metric("Total Rooms", total_rooms)
     
     with col2:
-        # Calculate room utilization
-        room_usage = schedule.groupby(['room', 'day', 'start_time']).size().reset_index(name='usage')
-        avg_room_util = room_usage['usage'].mean() if not room_usage.empty else 0
-        st.metric("Avg Room Utilization", f"{avg_room_util:.1f}")
+        total_classes = len(schedule)
+        st.metric("Total Classes Scheduled", total_classes)
     
     with col3:
-        # Calculate faculty workload balance
-        faculty_workload = schedule.groupby('faculty').size()
-        workload_std = faculty_workload.std() if not faculty_workload.empty else 0
-        st.metric("Workload Balance", f"{workload_std:.1f}")
+        avg_classes_per_room = total_classes / total_rooms if total_rooms > 0 else 0
+        st.metric("Avg Classes per Room", f"{avg_classes_per_room:.1f}")
     
     with col4:
-        # Calculate time slot efficiency
-        time_usage = schedule.groupby(['day', 'start_time']).size().reset_index(name='classes')
-        time_efficiency = len(time_usage) / (6 * 28) * 100  # 6 days, 28 time slots per day
-        st.metric("Time Efficiency", f"{time_efficiency:.1f}%")
-
-def resolve_time_conflicts(schedule, conflicts):
-    """Attempt to resolve time conflicts by rescheduling"""
-    # This is a simplified implementation
-    # In a real system, this would use more sophisticated algorithms
-    try:
-        resolved_schedule = schedule.copy()
-        
-        for _, conflict in conflicts.iterrows():
-            if conflict['conflict_type'] == 'Faculty':
-                # Find alternative time slots for one of the conflicting classes
-                conflicted_classes = resolved_schedule[
-                    (resolved_schedule['faculty'] == conflict['resource']) &
-                    (resolved_schedule['day'] == conflict['day'])
-                ]
+        # Calculate overall utilization (classes scheduled / total possible slots)
+        # Assuming 7 AM - 9 PM = 14 hours, 6 days = 84 hours per week per room
+        max_hours_per_week = 14 * 6
+        total_scheduled_hours = schedule['hours_per_week'].sum() if 'hours_per_week' in schedule.columns else len(schedule) * 2
+        utilization_rate = (total_scheduled_hours / (max_hours_per_week * total_rooms)) * 100 if total_rooms > 0 else 0
+        st.metric("Overall Utilization", f"{utilization_rate:.1f}%")
+    
+    # Display room schedules
+    st.subheader("📅 Room Schedules")
+    
+    if selected_room == "All Rooms":
+        # Show all rooms
+        for room in available_rooms:
+            with st.expander(f"📍 {room}", expanded=False):
+                room_schedule = schedule[schedule['room'] == room].copy()
                 
-                if len(conflicted_classes) >= 2:
-                    # Try to move the second class to a different time
-                    class_to_move = conflicted_classes.iloc[1]
-                    alternative_times = ['08:00', '10:00', '13:00', '15:00', '17:00']
-                    
-                    for new_time in alternative_times:
-                        if not schedule_conflict_exists(resolved_schedule, class_to_move, new_time):
-                            # Update the schedule
-                            mask = (resolved_schedule['course_code'] == class_to_move['course_code']) & \
-                                   (resolved_schedule['section'] == class_to_move['section'])
-                            resolved_schedule.loc[mask, 'start_time'] = new_time
-                            resolved_schedule.loc[mask, 'end_time'] = add_hours_to_time(new_time, 2)  # Assume 2-hour classes
-                            break
-        
-        return resolved_schedule
-    except Exception as e:
-        st.error(f"Error resolving conflicts: {str(e)}")
-        return None
-
-def resolve_faculty_conflicts(schedule, conflicts, faculty_df):
-    """Attempt to resolve faculty conflicts by reassigning faculty"""
-    try:
-        resolved_schedule = schedule.copy()
-        
-        for _, conflict in conflicts.iterrows():
-            if conflict['conflict_type'] == 'Faculty':
-                # Find alternative faculty for one of the conflicting classes
-                available_faculty = faculty_df[faculty_df['faculty_name'] != conflict['resource']]
+                if selected_day != "All Days":
+                    room_schedule = room_schedule[room_schedule['day'] == selected_day]
                 
-                for _, alt_faculty in available_faculty.iterrows():
-                    # Check if this faculty is available at the conflict time
-                    faculty_name = alt_faculty['faculty_name']
-                    if not faculty_has_conflict(resolved_schedule, faculty_name, conflict['day'], conflict['time1']):
-                        # Assign this faculty to one of the conflicting classes
-                        conflicted_classes = resolved_schedule[
-                            (resolved_schedule['faculty'] == conflict['resource']) &
-                            (resolved_schedule['day'] == conflict['day'])
-                        ]
-                        
-                        if len(conflicted_classes) >= 2:
-                            class_to_reassign = conflicted_classes.iloc[1]
-                            mask = (resolved_schedule['course_code'] == class_to_reassign['course_code']) & \
-                                   (resolved_schedule['section'] == class_to_reassign['section'])
-                            resolved_schedule.loc[mask, 'faculty'] = faculty_name
-                            break
-        
-        return resolved_schedule
-    except Exception as e:
-        st.error(f"Error resolving faculty conflicts: {str(e)}")
-        return None
-
-def resolve_room_conflicts(schedule, conflicts, rooms_df):
-    """Attempt to resolve room conflicts by reassigning rooms"""
-    try:
-        resolved_schedule = schedule.copy()
-        
-        for _, conflict in conflicts.iterrows():
-            if conflict['conflict_type'] == 'Room':
-                # Find alternative rooms for one of the conflicting classes
-                conflicted_classes = resolved_schedule[
-                    (resolved_schedule['room'] == conflict['resource']) &
-                    (resolved_schedule['day'] == conflict['day'])
-                ]
-                
-                if len(conflicted_classes) >= 2:
-                    class_to_move = conflicted_classes.iloc[1]
+                if not room_schedule.empty:
+                    # Create a weekly timetable for this room
+                    room_timetable = create_room_timetable(room_schedule)
+                    st.dataframe(room_timetable, use_container_width=True)
                     
-                    # Determine required room type
-                    required_type = 'Lab' if 'lab' in class_to_move['course_type'].lower() else 'Lecture'
-                    available_rooms = rooms_df[rooms_df['room_type'] == required_type]
-                    
-                    for _, alt_room in available_rooms.iterrows():
-                        room_name = alt_room['room_name']
-                        if not room_has_conflict(resolved_schedule, room_name, conflict['day'], conflict['time1']):
-                            # Assign this room to the conflicting class
-                            mask = (resolved_schedule['course_code'] == class_to_move['course_code']) & \
-                                   (resolved_schedule['section'] == class_to_move['section'])
-                            resolved_schedule.loc[mask, 'room'] = room_name
-                            break
+                    # Show class count
+                    st.caption(f"Total classes: {len(room_schedule)}")
+                else:
+                    st.info(f"No classes scheduled for this room" + (f" on {selected_day}" if selected_day != "All Days" else ""))
+    else:
+        # Show selected room
+        room_schedule = schedule[schedule['room'] == selected_room].copy()
         
-        return resolved_schedule
-    except Exception as e:
-        st.error(f"Error resolving room conflicts: {str(e)}")
-        return None
+        if selected_day != "All Days":
+            room_schedule = room_schedule[room_schedule['day'] == selected_day]
+        
+        if not room_schedule.empty:
+            # Create a weekly timetable for this room
+            st.subheader(f"Weekly Schedule for {selected_room}")
+            room_timetable = create_room_timetable(room_schedule)
+            st.dataframe(room_timetable, use_container_width=True, height=600)
+            
+            # Show detailed class list
+            st.subheader("Class Details")
+            
+            # Sort by day and time
+            room_schedule_sorted = room_schedule.sort_values(['day', 'start_time'])
+            
+            # Display as a formatted table
+            display_columns = ['day', 'start_time', 'end_time', 'course_code', 'course_title', 'section', 'faculty', 'course_type']
+            available_columns = [col for col in display_columns if col in room_schedule_sorted.columns]
+            st.dataframe(room_schedule_sorted[available_columns], use_container_width=True)
+            
+            st.caption(f"Total classes: {len(room_schedule)}")
+        else:
+            st.info(f"No classes scheduled for {selected_room}" + (f" on {selected_day}" if selected_day != "All Days" else ""))
 
-def schedule_conflict_exists(schedule, class_info, new_time):
-    """Check if moving a class to a new time would create conflicts"""
-    # Simplified check - in reality, this would be more comprehensive
-    return False
-
-def faculty_has_conflict(schedule, faculty_name, day, time_range):
-    """Check if faculty has a conflict at the given time"""
-    faculty_schedule = schedule[schedule['faculty'] == faculty_name]
-    day_schedule = faculty_schedule[faculty_schedule['day'] == day]
-    # Simplified check
-    return len(day_schedule) > 0
-
-def room_has_conflict(schedule, room_name, day, time_range):
-    """Check if room has a conflict at the given time"""
-    room_schedule = schedule[schedule['room'] == room_name]
-    day_schedule = room_schedule[room_schedule['day'] == day]
-    # Simplified check
-    return len(day_schedule) > 0
-
-def add_hours_to_time(time_str, hours):
-    """Add hours to a time string"""
-    from datetime import datetime, timedelta
-    try:
-        time_obj = datetime.strptime(time_str, "%H:%M")
-        new_time = time_obj + timedelta(hours=hours)
-        return new_time.strftime("%H:%M")
-    except:
-        return "10:00"  # Default fallback
+def create_room_timetable(room_schedule_df):
+    """Create a weekly timetable view for a room showing 7:00 AM - 9:00 PM"""
+    days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    
+    # Generate all time slots from 7:00 AM to 9:00 PM
+    time_slots = []
+    for hour in range(7, 21):  # 7 AM to 9 PM
+        time_slots.append(f"{hour:02d}:00")
+        time_slots.append(f"{hour:02d}:30")
+    
+    # Create empty timetable
+    timetable = pd.DataFrame(index=pd.Index(time_slots, name='Time'), columns=pd.Index(days))
+    timetable = timetable.fillna("")
+    
+    # Fill in the scheduled classes
+    for _, row in room_schedule_df.iterrows():
+        start_time = row['start_time']
+        day = row['day']
+        
+        # Format class information
+        course_info = f"{row['course_code']}"
+        if 'section' in row:
+            course_info += f"\n{row['section']}"
+        if 'course_type' in row:
+            course_info += f"\n({row['course_type']})"
+        
+        # Find the matching time slot
+        if start_time in timetable.index and day in timetable.columns:
+            if timetable.loc[start_time, day] == "":
+                timetable.loc[start_time, day] = course_info
+            else:
+                # If there's already a class, append (conflict indicator)
+                timetable.loc[start_time, day] += f"\n---\n{course_info}"
+    
+    return timetable
 
 def export_results_page():
     st.header("📤 Export Results")
