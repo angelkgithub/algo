@@ -1,185 +1,122 @@
 course_code,course_title,program,year_level,term,course_type,units,hours_per_week
-# BSCS Courses - Year 1
-CCINCOMX,Introduction to Computing,BSCS,1,1,Lecture,3,3
-CCINCOBL,Introduction to Computing Lab,BSCS,1,1,Lab,1,3
-CCPRGG1X,Fundamentals of Programming,BSCS,1,1,Lecture,3,3
-CCPRG1BL,Fundamentals of Programming Lab,BSCS,1,1,Lab,1,3
-GEMATMW,Mathematics in the Modern World,BSCS,1,1,Lecture,3,3
-GEUNDSE,Understanding the Self,BSCS,1,1,Lecture,3,3
-NSTP1,National Service Training Program 1,BSCS,1,1,Lecture,3,3
-PE1,Physical Education 1,BSCS,1,1,Lecture,2,2
-CCDISTR1,Discrete Structures 1,BSCS,1,2,Lecture,3,3
-CCPRGG2X,Intermediate Programming,BSCS,1,2,Lecture,3,3
-CCPRG2BL,Intermediate Programming Lab,BSCS,1,2,Lab,1,3
-GECYBER,Cybersecurity Fundamentals,BSCS,1,2,Lecture,3,3
-GEPURCO,Purposive Communication,BSCS,1,2,Lecture,3,3
-GERDHUM,Readings in Philippine History,BSCS,1,2,Lecture,3,3
-NSTP2,National Service Training Program 2,BSCS,1,2,Lecture,3,3
-PE2,Physical Education 2,BSCS,1,2,Lecture,2,2
-CCDISTR2,Discrete Structures 2,BSCS,1,3,Lecture,3,3
-CCOBJPGL,Object-Oriented Programming,BSCS,1,3,Lecture,3,3
-CCOBJPGX,Object-Oriented Programming Lab,BSCS,1,3,Lab,1,3
-GEARTAP,Art Appreciation,BSCS,1,3,Lecture,3,3
-GESCITEC,Science Technology and Society,BSCS,1,3,Lecture,3,3
-PE3,Physical Education 3,BSCS,1,3,Lecture,2,2
-# BSCS Courses - Year 2
-CCALCOML,Algorithms and Complexity,BSCS,2,1,Both,4,6
-CCDATRCL,Data Structures and Algorithms,BSCS,2,1,Both,4,6
-CCPROGRA,Advanced Programming,BSCS,2,1,Both,4,6
-GEPHILO,Introduction to Philosophy,BSCS,2,1,Lecture,3,3
-PE4,Physical Education 4,BSCS,2,1,Lecture,2,2
-CCMACOML,Machine Learning,BSCS,2,2,Both,4,6
-CCOPSYST,Operating Systems,BSCS,2,2,Both,4,6
-CCNETPRG,Network Programming,BSCS,2,2,Both,4,6
-GEETHICS,Ethics,BSCS,2,2,Lecture,3,3
-GERESEL1,Research Methods,BSCS,2,2,Lecture,3,3
-CCDATABA,Database Systems,BSCS,2,3,Both,4,6
-CCWEBDEV,Web Development,BSCS,2,3,Both,4,6
-CCSOFENG,Software Engineering,BSCS,2,3,Lecture,3,3
-CCFORMAL,Formal Methods,BSCS,2,3,Lecture,3,3
-GESTATS,Statistics and Probability,BSCS,2,3,Lecture,3,3
-# BSCS Courses - Year 3
-CCARTINT,Artificial Intelligence,BSCS,3,1,Both,4,6
-CCCOMPGR,Computer Graphics,BSCS,3,1,Both,4,6
-CCNETWORK,Computer Networks,BSCS,3,1,Both,4,6
-CCTHESIS1,Thesis Writing 1,BSCS,3,1,Lecture,3,3
-GELITREV,Literature Review,BSCS,3,1,Lecture,3,3
-CCCYBERS,Cybersecurity,BSCS,3,2,Both,4,6
-CCMOBILE,Mobile Application Development,BSCS,3,2,Both,4,6
-CCHUMCOM,Human Computer Interaction,BSCS,3,2,Lecture,3,3
-CCTHESIS2,Thesis Writing 2,BSCS,3,2,Lecture,3,3
-GERESEL2,Research Methodology,BSCS,3,2,Lecture,3,3
-CCPRACTI,Practicum,BSCS,3,3,Lecture,6,6
-CCELECT1,CS Elective 1,BSCS,3,3,Lecture,3,3
-CCELECT2,CS Elective 2,BSCS,3,3,Lecture,3,3
-# BSCS Courses - Year 4
-CCTHESIS3,Thesis Implementation,BSCS,4,1,Lecture,6,6
-CCELECT3,CS Elective 3,BSCS,4,1,Lecture,3,3
-CCELECT4,CS Elective 4,BSCS,4,1,Lecture,3,3
-CCPRPSEM,Professional Seminar,BSCS,4,1,Lecture,3,3
-GERESELM,Research Methodology in CS,BSCS,4,1,Lecture,3,3
-CCTHESIS4,Thesis Defense,BSCS,4,2,Lecture,3,3
-CCINTERN,Internship,BSCS,4,2,Lecture,6,6
-CCELECT5,CS Elective 5,BSCS,4,2,Lecture,3,3
-CCELECT6,CS Elective 6,BSCS,4,2,Lecture,3,3
-# BSIT Courses - Year 1
-INTCOMC,Introduction to Computing for CS/IT,BSIT,1,1,Lecture,3,3
-PROGCON,Programming Concepts and Logic,BSIT,1,1,Both,4,6
-COMPORG,Computer Organization & Architecture,BSIT,1,1,Lecture,3,3
-GEMATMW,Mathematics in the Modern World,BSIT,1,1,Lecture,3,3
-GEUNDSE,Understanding the Self,BSIT,1,1,Lecture,3,3
-NSTP1,National Service Training Program 1,BSIT,1,1,Lecture,3,3
-PE1,Physical Education 1,BSIT,1,1,Lecture,2,2
-INPROLA,Introduction to Programming & Theories,BSIT,1,2,Both,4,6
-MANPRIN,Management Principles,BSIT,1,2,Lecture,3,3
-OPESYST,Operating Systems,BSIT,1,2,Lecture,3,3
-GEPURCO,Purposive Communication,BSIT,1,2,Lecture,3,3
-GERDHUM,Readings in Philippine History,BSIT,1,2,Lecture,3,3
-NSTP2,National Service Training Program 2,BSIT,1,2,Lecture,3,3
-PE2,Physical Education 2,BSIT,1,2,Lecture,2,2
-DASTRUC,Data Structures,BSIT,1,3,Both,4,6
-BUSPROS,Business Process,BSIT,1,3,Lecture,3,3
-DNETCOM,Network Security Storage & Data Communication,BSIT,1,3,Lecture,3,3
-GEARTAP,Art Appreciation,BSIT,1,3,Lecture,3,3
-GESCITEC,Science Technology and Society,BSIT,1,3,Lecture,3,3
-PE3,Physical Education 3,BSIT,1,3,Lecture,2,2
-# BSIT Courses - Year 2
-CCWEBDEV,Web Development,BSIT,2,1,Both,4,6
-CCDATABA,Database Systems,BSIT,2,1,Both,4,6
-CCNETADM,Network Administration,BSIT,2,1,Both,4,6
-GEPHILO,Introduction to Philosophy,BSIT,2,1,Lecture,3,3
-PE4,Physical Education 4,BSIT,2,1,Lecture,2,2
-CCMOBILE,Mobile Application Development,BSIT,2,2,Both,4,6
-CCSYSADM,Systems Administration,BSIT,2,2,Both,4,6
-CCINFOSEC,Information Security,BSIT,2,2,Both,4,6
-GEETHICS,Ethics,BSIT,2,2,Lecture,3,3
-GERESEL1,Research Methods,BSIT,2,2,Lecture,3,3
-CCSERVMAN,Server Management,BSIT,2,3,Both,4,6
-CCCLOUDCOM,Cloud Computing,BSIT,2,3,Both,4,6
-CCPROMAN,Project Management,BSIT,2,3,Lecture,3,3
-GESTATS,Statistics and Probability,BSIT,2,3,Lecture,3,3
-# BSIT Courses - Year 3
-CCDEVOPS,DevOps and Automation,BSIT,3,1,Both,4,6
-CCBIGDATA,Big Data Technologies,BSIT,3,1,Both,4,6
-CCITMANAG,IT Management and Governance,BSIT,3,1,Lecture,3,3
-CCTHESIS1,Thesis Writing 1,BSIT,3,1,Lecture,3,3
-GELITREV,Literature Review,BSIT,3,1,Lecture,3,3
-CCNETWORK,Advanced Networking,BSIT,3,2,Both,4,6
-CCVIRTU,Virtualization Technologies,BSIT,3,2,Both,4,6
-CCITSRVC,IT Service Management,BSIT,3,2,Both,4,6
-CCTHESIS2,Thesis Writing 2,BSIT,3,2,Lecture,3,3
-GERESEL2,Research Methodology,BSIT,3,2,Lecture,3,3
-CCPRACTI,Practicum,BSIT,3,3,Lecture,6,6
-CCELECT1,IT Elective 1,BSIT,3,3,Lecture,3,3
-CCELECT2,IT Elective 2,BSIT,3,3,Lecture,3,3
-# BSIT Courses - Year 4
-CCTHESIS3,Thesis Implementation,BSIT,4,1,Lecture,6,6
-CCELECT3,IT Elective 3,BSIT,4,1,Lecture,3,3
-CCELECT4,IT Elective 4,BSIT,4,1,Lecture,3,3
-CCPRPSEM,Professional Seminar,BSIT,4,1,Lecture,3,3
-GERESELM,Research Methodology in IT,BSIT,4,1,Lecture,3,3
-CCTHESIS4,Thesis Defense,BSIT,4,2,Lecture,3,3
-CCINTERN,Internship,BSIT,4,2,Lecture,6,6
-CCELECT5,IT Elective 5,BSIT,4,2,Lecture,3,3
-CCELECT6,IT Elective 6,BSIT,4,2,Lecture,3,3
-# BSIS Courses - Year 1
-CCINCOMX,Introduction to Computing,BSIS,1,1,Lecture,3,3
-CCINCOBL,Introduction to Computing Lab,BSIS,1,1,Lab,1,3
-CCPRGG1X,Fundamentals of Programming,BSIS,1,1,Lecture,3,3
-CCPRG1BL,Fundamentals of Programming Lab,BSIS,1,1,Lab,1,3
-GEMATMW,Mathematics in the Modern World,BSIS,1,1,Lecture,3,3
-GEUNDSE,Understanding the Self,BSIS,1,1,Lecture,3,3
-NSTP1,National Service Training Program 1,BSIS,1,1,Lecture,3,3
-PE1,Physical Education 1,BSIS,1,1,Lecture,2,2
-CCFUINSY,Fundamentals of Information Systems,BSIS,1,2,Lecture,3,3
-CCPRGG2X,Intermediate Programming,BSIS,1,2,Lecture,3,3
-CCPRG2BL,Intermediate Programming Lab,BSIS,1,2,Lab,1,3
-GECYBER,Cybersecurity Fundamentals,BSIS,1,2,Lecture,3,3
-GEPURCO,Purposive Communication,BSIS,1,2,Lecture,3,3
-GERDHUM,Readings in Philippine History,BSIS,1,2,Lecture,3,3
-NSTP2,National Service Training Program 2,BSIS,1,2,Lecture,3,3
-PE2,Physical Education 2,BSIS,1,2,Lecture,2,2
-CCDATRCL,Data Structures and Algorithms,BSIS,1,3,Both,4,6
-CCORMACO,Organization and Management Concepts,BSIS,1,3,Lecture,3,3
-GEARTAP,Art Appreciation,BSIS,1,3,Lecture,3,3
-GESCITEC,Science Technology and Society,BSIS,1,3,Lecture,3,3
-PE3,Physical Education 3,BSIS,1,3,Lecture,2,2
-# BSIS Courses - Year 2
-CCDATABA,Database Management Systems,BSIS,2,1,Both,4,6
-CCSYSANA,Systems Analysis and Design,BSIS,2,1,Both,4,6
-CCWEBDEV,Web Development,BSIS,2,1,Both,4,6
-GEPHILO,Introduction to Philosophy,BSIS,2,1,Lecture,3,3
-PE4,Physical Education 4,BSIS,2,1,Lecture,2,2
-CCBUSINT,Business Intelligence,BSIS,2,2,Both,4,6
-CCNETWORK,Networking and Data Communications,BSIS,2,2,Both,4,6
-CCPROMAN,Project Management,BSIS,2,2,Lecture,3,3
-GEETHICS,Ethics,BSIS,2,2,Lecture,3,3
-GERESEL1,Research Methods,BSIS,2,2,Lecture,3,3
-CCSYSINT,Systems Integration,BSIS,2,3,Both,4,6
-CCINFOSC,Information Security,BSIS,2,3,Both,4,6
-CCQUALIT,Quality Assurance,BSIS,2,3,Lecture,3,3
-GESTATS,Statistics and Probability,BSIS,2,3,Lecture,3,3
-# BSIS Courses - Year 3
-CCENTSYS,Enterprise Systems,BSIS,3,1,Both,4,6
-CCDATASC,Data Science and Analytics,BSIS,3,1,Both,4,6
-CCBUSAPP,Business Applications Development,BSIS,3,1,Both,4,6
-CCTHESIS1,Thesis Writing 1,BSIS,3,1,Lecture,3,3
-GELITREV,Literature Review,BSIS,3,1,Lecture,3,3
-CCINFMAN,Information Systems Management,BSIS,3,2,Lecture,3,3
-CCITSRVC,IT Service Management,BSIS,3,2,Both,4,6
-CCECOMRC,E-Commerce Systems,BSIS,3,2,Both,4,6
-CCTHESIS2,Thesis Writing 2,BSIS,3,2,Lecture,3,3
-GERESEL2,Research Methodology,BSIS,3,2,Lecture,3,3
-CCPRACTI,Practicum,BSIS,3,3,Lecture,6,6
-CCELECT1,IS Elective 1,BSIS,3,3,Lecture,3,3
-CCELECT2,IS Elective 2,BSIS,3,3,Lecture,3,3
-# BSIS Courses - Year 4
-CCTHESIS3,Thesis Implementation,BSIS,4,1,Lecture,6,6
-CCELECT3,IS Elective 3,BSIS,4,1,Lecture,3,3
-CCELECT4,IS Elective 4,BSIS,4,1,Lecture,3,3
-CCPRPSEM,Professional Seminar,BSIS,4,1,Lecture,3,3
-GERESELM,Research Methodology in IS,BSIS,4,1,Lecture,3,3
-CCTHESIS4,Thesis Defense,BSIS,4,2,Lecture,3,3
-CCINTERN,Internship,BSIS,4,2,Lecture,6,6
-CCELECT5,IS Elective 5,BSIS,4,2,Lecture,3,3
-CCELECT6,IS Elective 6,BSIS,4,2,Lecture,3,3
+# BSCS Courses - Year 1,,,,,,,
+CCINCOMX,INTRODUCTION TO COMPUTING - LEC,BSCS,1,1,Lecture,3,2
+CCINCOBL,INTRODUCTION TO COMPUTING - LAB,BSCS,1,1,Lab,1,4
+CCPRGG1X,FUNDAMENTALS OF PROGRAMMING - LEC,BSCS,1,1,Lecture,3,2
+CCPRG1BL,FUNDAMENTALS OF PROGRAMMING - LAB,BSCS,1,1,Lab,1,4
+CCDISTR1,DISCRETE STRUCTURES 1,BSCS,1,2,Both,3,6
+CCPRGG2X,INTERMEDIATE PROGRAMMING - LEC,BSCS,1,2,Lecture,3,2
+CCPRG2BL,INTERMEDIATE PROGRAMMING - LAB,BSCS,1,2,Lab,3,4
+CCDISTR2,DISCRETE STRUCTURES 2,BSCS,1,3,Both,2,6
+CCOBJPGL,OBJECT-ORIENTED PROGRAMMING,BSCS,1,3,Lab,3,4
+CCOBJPGX,OBJECT-ORIENTED PROGRAMMING - LEC,BSCS,1,3,Lecture,3,2
+# BSCS Courses - Year 2,,,,,,,
+CTINFMGL,INFORMATION MANAGEMENT,BSCS,2,1,Both,4,6
+CCDATRCL,DATA STRUCTURES AND ALGORITHMS,BSCS,2,1,Both,4,6
+CCSPEL1X,SPORTS ELECTIVE 1 ( E-GAMES DESIGN I ),BSCS,2,1,Both,4,3
+CCOMPORL,COMPUTER ARCHITECTURE AND ORGANIZATION,BSCS,2,2,Lecture,3,6
+CCDATSYL,DATABASE SYSTEMS,BSCS,2,2,Lecture,2,6
+CCSPEL2X,SPORTS ELECTIVE 2 ( E- GAMES DESIGN II ),BSCS,2,2,Both,4,4
+CCQUAMET,QUANTITATIVE METHODS,BSCS,2,3,Both,4,6
+CCOPSYSL,OPERATING SYSTEMS,BSCS,2,3,Both,4,6
+# BSCS Courses - Year 3,,,,,,,
+CCALCOML,ALGORITHMS AND COMPLEXITY,BSCS,3,1,Both,4,6
+CIWEBPRL,WEB PROGRAMMING,BSCS,3,1,Both,4,6
+CCHUCOIL,HUMAN-COMPUTER INTERACTION,BSCS,3,1,Both,4,6
+CIMUCOGL,MULTIMEDIA AND COMPUTER GRAPHICS,BSCS,3,1,Lecture,3,6
+CCSFEN1L,SOFTWARE ENGINEERING 1,BSCS,3,2,Lecture,3,6
+CTINASSL,INFORMATION ASSURANCE AND SECURITY,BSCS,3,2,Both,4,6
+CCNETCOL,NETWORK AND COMMUNICATIONS,BSCS,3,2,Both,4,6
+CCAUTOMA,AUTOMATA THEORY AND FORMAL LANGUAGES,BSCS,3,3,Lecture,3,6
+CTAPDEVL,APPLICATION DEVELOPMENT AND EMERGING TECHNOLOGY,BSCS,3,3,Lecture,3,6
+CCSFEN2L,SOFTWARE ENGINEERING 2,BSCS,3,3,Lecture,3,6
+# BSCS Courses - Year 4,,,,,,,
+CCTHES1L,THESIS 1,BSCS,4,1,Lecture,6,6
+CCPGLANL,PROGRAMMING LANGUAGES,BSCS,4,1,Lecture,3,6
+CCSELE1L,C.S. ELECTIVE 1,BSCS,4,1,Lecture,3,6
+CCCSINTX,INTERNSHIP (MIN. 162 HRS),BSCS,4,2,Lecture,3,4
+CCSELE2L,C.S. ELECTIVE 2,BSCS,4,2,Lecture,3,6
+CCTHES2L,THESIS 2,BSCS,4,3,Lecture,3,6
+CCSELE3L,C.S. ELECTIVE 3,BSCS,4,3,Lecture,6,6
+CTPRFISS,SOCIAL AND PROFESSIONAL ISSUES,BSCS,4,3,Lecture,3,4
+# BSIT Courses - Year 1,,,,,,,
+INTCOMC,INTRODUCTION TO COMPUTING FOR CS / IT,BSIT,1,1,Lecture,3,4
+PROGCON,Programming Concepts and Logic,BSIT,1,1,Both,4,4
+COMPORG,COMPUTER ORGANIZATION &amp; ARCHITECTURE,BSIT,1,1,Lecture,3,4
+INPROLA,INTRODUCTION TO PROGRAMMING &amp; THEORIES,BSIT,1,2,Lecture,3,4
+MANPRIN,MANAGEMENT PRINCIPLES,BSIT,1,2,Lecture,3,4
+OPESYST,OPERATING SYSTEMS,BSIT,1,2,Lecture,3,4
+DASTRUC,DATA STRUCTURES,BSIT,1,3,Lecture,2,4
+BUSPROS,Business Process,BSIT,1,3,Both,4,4
+DNETCOM,"NETWORK SECURITY, STORAGE &amp; DATA COMMUNICATION",BSIT,1,3,Lecture,3,4
+# BSIT Courses - Year 2,,,,,,,
+USERDES,UI/UX DESIGN AND PROGRAMMING,BSIT,2,1,Both,3,4
+DISCRET,DISCRETE MATH,BSIT,2,1,Both,3,4
+DATAMA1,DATABASE MANAGEMENT 1,BSIT,2,1,Both,3,4
+QUAMET1,QUANTITATIVE METHODS 1,BSIT,2,1,Lecture,3,4
+RPASYST,RPA SYSTEMS,BSIT,2,1,Lecture,3,4
+INFOSEC,INFORMATION SECURITY,BSIT,2,1,Both,3,4
+WEBPROG,WEB PROGAMMING (for BSIT),BSIT,2,2,Both,2,4
+MOBPROG,MOBILE PROGRAMMING,BSIT,2,2,Both,3,4
+DATAMA2,DATABASE MANAGEMENT 2 and ADMINISTRATION,BSIT,2,2,Lecture,3,4
+PEMBEDS,PROGRAMMING EMBEDDED SYSTEMS,BSIT,2,2,Lecture,3,4
+ELECTV1,ELECTIVE 1,BSIT,2,2,Both,3,4
+CLDCOMP,CLOUD COMPUTING &amp; VIRTUALIZATION,BSIT,2,2,Both,3,4
+EXCOMP1,EXTENSIVE COMPETENCY COMMUNICATION PROGRAM 1,BSIT,2,3,Lecture,3,4
+MNTSDEV,INTRODUCTION TO SYSTEMS AND DESIGN,BSIT,2,3,Lecture,2,4
+ELECTV2,ELECTIVE 2,BSIT,2,3,Lecture,2,4
+# BSIT Courses - Year 3,,,,,,,
+MSYADD1,SYSTEMS ANALYSIS &amp; DETAILED DESIGN,BSIT,3,1,Both,4,2
+ELECTV3,ELECTIVE 3,BSIT,3,1,Both,4,2
+ICTSRV1,ICT SERVICES MANAGEMENT (A+ PC TROUBLESHOOTING),BSIT,3,1,Lecture,3,2
+MCSPROJ,APPLIED PROJECT - SYSTEM PHOTOTYPE,BSIT,3,2,Lecture,3,2
+TENTREP,TECHNOPRENEURSHIP,BSIT,3,2,Lecture,3,2
+ELECTV4,ELECTIVE 4,BSIT,3,2,Both,4,2
+PROJMAN,PROJECT MANAGEMENT,BSIT,3,3,Both,4,2
+MNSYSIT,MANAGEMENT INFORMATION SYSTEMS &amp; IT TRENDS,BSIT,3,3,Both,4,2
+ITBLAWS,IT AND BUSINESS LAWS,BSIT,3,3,Lecture,3,2
+# BSIT Courses - Year 4,,,,,,,
+PROFETH,PROFESSIONAL ETHICS,BSIT,4,1,Lecture,6,4
+SOFTDEV,SOFTWARE DEVELOPMENT,BSIT,4,1,Both,3,4
+QUALITY,SOFTWARE QUALITY MANAGEMENT,BSIT,4,1,Both,3,4
+xINTERN1,INTERNSHIP 1,BSIT,4,2,Lecture,3,4
+INTERN2,INTERNSHIP 2,BSIT,4,3,Lecture,3,4
+# BSIS Courses - Year 1,,,,,,,
+CCINCOMX,INTRODUCTION TO COMPUTING - LEC,BSIS,1,1,Lecture,3,2
+CCINCOBL,INTRODUCTION TO COMPUTING - LAB,BSIS,1,1,Lab,1,4
+CCPRGG1X,FUNDAMENTALS OF PROGRAMMING - LEC,BSIS,1,1,Lecture,3,2
+CCPRG1BL,FUNDAMENTALS OF PROGRAMMING - LAB,BSIS,1,1,Lab,1,4
+CCFUINSY,FUNDAMENTALS OF INFORMATION SYSTEMS,BSIS,1,2,Lecture,3,6
+CCPRGG2X,INTERMEDIATE PROGRAMMING - LEC,BSIS,1,2,Lecture,3,2
+CCPRG2BL,INTERMEDIATE PROGRAMMING - LAB,BSIS,1,2,Lecture,3,4
+CCDATRCL,DATA STRUCTURES AND ALGORITHMS,BSIS,1,3,Lecture,2,6
+CCORMACO,ORGANIZATION AND MANAGEMENT CONCEPTS,BSIS,1,3,Lecture,3,6
+# BSIS Courses - Year 2,,,,,,,
+CTINFMGL,INFORMATION MANAGEMENT,BSIS,2,1,Both,4,6
+CCSPEL1X,SPORTS ELECTIVE 1 ( E-GAMES DESIGN I ),BSIS,2,1,Both,4,4
+CIENTARL,ENTERPRISE ARCHITECTURE,BSIS,2,2,Both,4,6
+CCSPEL2X,SPORTS ELECTIVE 2 ( E- GAMES DESIGN II ),BSIS,2,2,Both,3,4
+CCQUAMET,QUANTITATIVE METHODS,BSIS,2,2,Both,2,6
+BUPRDEMA,BUSINESS PROCESS MANAGEMENT,BSIS,2,2,Lecture,4,4
+ITINNETE,I.T. INFRASTRUCTURE AND NETWORK TECHNOLOGIES,BSIS,2,3,Both,4,6
+CCDATSYL,DATABASE SYSTEMS,BSIS,2,3,Both,3,6
+# BSIS Courses - Year 3,,,,,,,
+BAFINMAX,FINANCIAL MANAGEMENT,BSIS,3,1,Both,4,4
+CIEVBUPE,EVALUATION OF BUSINESS PERFORMANCE,BSIS,3,1,Both,4,4
+CIMUCOGL,MULTIMEDIA AND COMPUTER GRAPHICS,BSIS,3,1,Both,4,6
+CIWEBPRL,WEB PROGRAMMING,BSIS,3,1,Lecture,3,6
+CISECDEL,E-COMMERCE AND DIGITAL ENTREPRENEURSHIP,BSIS,3,2,Lecture,3,4
+CTSYSADL,SYSTEMS ANALYSIS AND DESIGN,BSIS,3,2,Lecture,3,6
+CISPRMAL,I.S. PROJECT MANAGEMENT,BSIS,3,2,Both,4,6
+CISELE1L,I.S. ELECTIVE 1,BSIS,3,2,Both,4,6
+CTAPDEVL,APPLICATION DEVELOPMENT AND EMERGING TECHNOLOGY,BSIS,3,3,Lecture,3,6
+CCSFEN1L,SOFTWARE ENGINEERING 1,BSIS,3,3,Lecture,3,6
+CISELE2L,I.S. ELECTIVE 2,BSIS,3,3,Lecture,6,6
+# BSIS Courses - Year 4,,,,,,,
+CAPROJ1L,CAPSTONE PROJECT 1,BSIS,4,1,Lecture,6,6
+ISSTMAAC,I.S. STRATEGY MANAGEMENT AND ACQUISITION,BSIS,4,1,Lecture,3,6
+CISELE3L,I.S. ELECTIVE 3,BSIS,4,1,Lecture,3,6
+CCISINTX,INTERNSHIP (486 HRS),BSIS,4,2,Lecture,3,4
+CAPROJ2L,CAPSTONE PROJECT 2,BSIS,4,3,Lecture,3,6
+PRISINSY,PROFESSIONAL ISSUES IN INFORMATION SYSTEMS,BSIS,4,3,Lecture,3,4
+CISELE4L,I.S. ELECTIVE 4,BSIS,4,3,Lecture,6,6

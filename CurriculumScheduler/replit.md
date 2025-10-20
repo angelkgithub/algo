@@ -2,6 +2,25 @@
 
 This is a class scheduling system built with Streamlit that automates the generation of academic schedules for university programs. The application takes enrollment data, course information, room availability, and faculty details to create conflict-free class schedules. It supports multiple degree programs (BSIT, BSCS, BSIS) and handles both lecture and laboratory courses with flexible time slot assignments.
 
+# Recent Changes
+
+**October 1, 2025**: Configured project for Replit environment and updated scheduling algorithm
+- Set up Python 3.11 with dependencies (streamlit, pandas, numpy, openpyxl)
+- Configured Streamlit to run on port 5000 with host 0.0.0.0 for Replit proxy compatibility
+- Added .streamlit/config.toml with server settings to allow all hosts
+- Created .gitignore for Python project structure
+- Configured workflow to automatically run the Streamlit app on startup
+- **Updated scheduling algorithm** to split classes across two specific days:
+  - Lecture classes (3 hrs/week): Split into 1.5 hour sessions
+  - Lab classes (2+ hrs/week): Split into balanced sessions
+  - Day pairings: Monday-Thursday, Tuesday-Friday, or Wednesday-Saturday
+  - Maintains conflict detection to avoid scheduling overlaps
+- **Implemented even distribution mechanism**:
+  - Added rotation system to distribute courses evenly across all three day pairs
+  - Prevents clustering on specific day pairings (e.g., all courses on Monday-Thursday)
+  - Maximizes room utilization throughout the entire week
+  - Counter-based rotation ensures deterministic scheduling across runs
+
 # User Preferences
 
 Preferred communication style: Simple, everyday language.

@@ -16,6 +16,9 @@ class ClassScheduler:
         self.time_slots = self._generate_time_slots()
         self.days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
         
+        # Track day pairing usage for even distribution
+        self.day_pairing_counter = 0
+        
     def _generate_time_slots(self):
         """Generate available time slots"""
         slots = []
@@ -206,8 +209,8 @@ class ClassScheduler:
         course_code = course_row['course_code']
         course_title = course_row['course_title']
         
-        # Determine time patterns based on hours
-        time_patterns = self._get_time_patterns(hours)
+        # Determine time patterns based on hours and component type
+        time_patterns = self._get_time_patterns(hours, component_type)
         
         for pattern in time_patterns:
             # Try to find a suitable assignment
@@ -232,79 +235,109 @@ class ClassScheduler:
         
         return False
     
-    def _get_time_patterns(self, hours):
-        """Generate possible time patterns for given hours"""
+    def _get_time_patterns(self, hours, component_type='Lecture'):
+        """Generate possible time patterns for given hours with specific day pairings"""
         patterns = []
         
-        if hours <= 2:
-            # Single session patterns
-            for day in self.days:
-                for start_time in self.time_slots[:-4]:  # Leave room for class duration
-                    end_time = self._add_hours_to_time(start_time, hours)
-                    if end_time in self.time_slots:
-                        patterns.append([{
-                            'day': day,
-                            'start_time': start_time,
-                            'end_time': end_time,
-                            'duration': hours
-                        }])
+        # Define preferred day pairings for two-session courses
+        base_day_pairings = [
+            ('Monday', 'Thursday'),
+            ('Tuesday', 'Friday'),
+            ('Wednesday', 'Saturday')
+        ]
         
-        elif hours <= 4:
-            # Can be single session or split into 2 sessions
-            # Single session
-            for day in self.days:
-                for start_time in self.time_slots[:-8]:
-                    end_time = self._add_hours_to_time(start_time, hours)
-                    if end_time in self.time_slots:
-                        patterns.append([{
-                            'day': day,
-                            'start_time': start_time,
-                            'end_time': end_time,
-                            'duration': hours
-                        }])
-            
-            # Split into 2 sessions
-            session_hours = hours / 2
-            for day1 in self.days:
-                for day2 in self.days:
-                    if day1 != day2:
-                        for start_time in self.time_slots[:-4]:
-                            end_time = self._add_hours_to_time(start_time, session_hours)
-                            if end_time in self.time_slots:
-                                patterns.append([
-                                    {
-                                        'day': day1,
-                                        'start_time': start_time,
-                                        'end_time': end_time,
-                                        'duration': session_hours
-                                    },
-                                    {
-                                        'day': day2,
-                                        'start_time': start_time,
-                                        'end_time': end_time,
-                                        'duration': session_hours
-                                    }
-                                ])
+        # Rotate day pairings to distribute courses evenly across the week
+        # Each successfully scheduled course component will use a different day pairing first
+        rotation = self.day_pairing_counter % 3
+        day_pairings = base_day_pairings[rotation:] + base_day_pairings[:rotation]
         
-        else:
-            # Split into multiple sessions
-            session_hours = 2
-            num_sessions = int(hours / session_hours)
-            
-            # Generate combinations of days
-            for day_combo in self._get_day_combinations(num_sessions):
+        # For lab classes with 2 hours or more, always split across two days
+        # For lecture classes, split if 2-4 hours
+        should_split = (component_type == 'Lab' and hours >= 2) or (hours > 2 and hours <= 4)
+        
+        if hours <= 2 and not should_split:
+            # Single session patterns for very short classes (1 hour lectures)
+            for day in self.days:
                 for start_time in self.time_slots[:-4]:
+                    end_time = self._add_hours_to_time(start_time, hours)
+                    if end_time in self.time_slots:
+                        patterns.append([{
+                            'day': day,
+                            'start_time': start_time,
+                            'end_time': end_time,
+                            'duration': hours
+                        }])
+        
+        elif hours == 2 and component_type == 'Lab':
+            # Split 2-hour labs into two 1-hour sessions
+            session_hours = 1
+            
+            for day1, day2 in day_pairings:
+                for start_time in self.time_slots[:-2]:
                     end_time = self._add_hours_to_time(start_time, session_hours)
                     if end_time in self.time_slots:
-                        pattern = []
-                        for day in day_combo:
-                            pattern.append({
-                                'day': day,
+                        patterns.append([
+                            {
+                                'day': day1,
                                 'start_time': start_time,
                                 'end_time': end_time,
                                 'duration': session_hours
-                            })
-                        patterns.append(pattern)
+                            },
+                            {
+                                'day': day2,
+                                'start_time': start_time,
+                                'end_time': end_time,
+                                'duration': session_hours
+                            }
+                        ])
+        
+        elif hours <= 4:
+            # Split into 2 balanced sessions using specific day pairings
+            session_hours = hours / 2
+            slots_needed = int(session_hours * 2)
+            
+            for day1, day2 in day_pairings:
+                for start_time in self.time_slots[:-slots_needed if slots_needed > 0 else -1]:
+                    end_time = self._add_hours_to_time(start_time, session_hours)
+                    if end_time in self.time_slots:
+                        patterns.append([
+                            {
+                                'day': day1,
+                                'start_time': start_time,
+                                'end_time': end_time,
+                                'duration': session_hours
+                            },
+                            {
+                                'day': day2,
+                                'start_time': start_time,
+                                'end_time': end_time,
+                                'duration': session_hours
+                            }
+                        ])
+        
+        else:
+            # For longer courses (>4 hours), split into 2 balanced sessions across specific day pairs
+            session_hours = hours / 2
+            slots_needed = int(session_hours * 2)
+            
+            for day1, day2 in day_pairings:
+                for start_time in self.time_slots[:-slots_needed if slots_needed > 0 else -1]:
+                    end_time = self._add_hours_to_time(start_time, session_hours)
+                    if end_time in self.time_slots:
+                        patterns.append([
+                            {
+                                'day': day1,
+                                'start_time': start_time,
+                                'end_time': end_time,
+                                'duration': session_hours
+                            },
+                            {
+                                'day': day2,
+                                'start_time': start_time,
+                                'end_time': end_time,
+                                'duration': session_hours
+                            }
+                        ])
         
         return patterns
     
@@ -422,6 +455,9 @@ class ClassScheduler:
             if day not in section_schedule[section_name]:
                 section_schedule[section_name][day] = []
             section_schedule[section_name][day].append(session_info)
+        
+        # Increment counter after successful assignment for even day-pairing distribution
+        self.day_pairing_counter += 1
     
     def _find_suitable_faculty(self, course_row):
         """Find faculty members suitable for teaching a course"""
@@ -656,6 +692,9 @@ class ClassScheduler:
         
         # Store assignment data for backtracking
         assignment_option['assignment_data'] = assignment_data
+        
+        # Increment counter after successful assignment for even day-pairing distribution
+        self.day_pairing_counter += 1
     
     def _undo_assignment_backtrack(self, assignment_option, course_row, section_row, 
                                  schedule_list, faculty_schedule, room_schedule, section_schedule):
@@ -704,6 +743,9 @@ class ClassScheduler:
                 ]
                 if not section_schedule[section_name][day]:
                     del section_schedule[section_name][day]
+        
+        # Decrement counter when undoing assignment to maintain accuracy
+        self.day_pairing_counter -= 1
     
     def _constraint_satisfaction_scheduling(self, courses_to_schedule, max_iterations, allow_conflicts):
         """Constraint Satisfaction Problem (CSP) based scheduling algorithm"""
