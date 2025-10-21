@@ -19,3 +19,12 @@ a streamlit-based class scheduling system designed to automate course scheduling
 ```bash
 git clone https://github.com/yourusername/CurriculumScheduler.git
 cd CurriculumScheduler
+
+make sure you have python 3.10 or higher installed.
+run this on command prompt / terminal
+check your version with:
+python --version
+then
+pip install streamlit pandas numpy
+lastly
+streamlit run app.py or python -m streamlit run app.py
