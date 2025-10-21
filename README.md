@@ -27,4 +27,4 @@ python --version
 then
 pip install streamlit pandas numpy
 lastly
-streamlit run app.py or python -m streamlit run app.py
+go to output click launch app
