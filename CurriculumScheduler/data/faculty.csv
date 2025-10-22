@@ -1,0 +1,11 @@
+faculty_name,employment_type,max_hours_per_week,available_days,specialization
+Prof. John Smith,Full-time,30,"Monday,Tuesday,Wednesday,Thursday,Friday",Computer Science
+Prof. Maria Garcia,Full-time,30,"Monday,Tuesday,Wednesday,Thursday,Friday",Information Systems
+Prof. Robert Johnson,Full-time,30,"Monday,Tuesday,Wednesday,Thursday,Friday",Information Technology
+Prof. Lisa Brown,Full-time,30,"Monday,Tuesday,Wednesday,Thursday,Friday,Saturday",Programming
+Prof. David Wilson,Full-time,30,"Monday,Tuesday,Wednesday,Thursday,Friday",Database Systems
+Prof. Sarah Davis,Part-time,18,"Tuesday,Thursday,Saturday",Web Development
+Prof. Michael Miller,Part-time,18,"Monday,Wednesday,Friday",Network Security
+Prof. Jennifer Taylor,Part-time,18,"Tuesday,Thursday,Saturday",Software Engineering
+Prof. Christopher Anderson,Full-time,30,"Monday,Tuesday,Wednesday,Thursday,Friday",Algorithms
+Prof. Amanda White,Part-time,18,"Monday,Wednesday,Friday,Saturday",General Education
